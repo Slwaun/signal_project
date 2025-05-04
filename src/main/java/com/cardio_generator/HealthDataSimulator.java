@@ -48,6 +48,7 @@ public class HealthDataSimulator {
     }
 
     /**
+     * generate the simulator based of args
      * 
      * @param args args given when the class is running
      * @throws IOException if an error occurs during the output

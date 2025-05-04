@@ -8,6 +8,7 @@ import com.cardio_generator.outputs.OutputStrategy;
 public interface PatientDataGenerator {
     /**
      * Generate an output based on the Id of a patient
+     * 
      * @param patientId the Id of a patient
      * @param outputStrategy an outputStrategy
      */
