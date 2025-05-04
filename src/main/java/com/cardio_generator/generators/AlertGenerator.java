@@ -1,11 +1,13 @@
 package com.cardio_generator.generators;
 
-import java.util.Random;
+// Delete the space between the import
 import com.cardio_generator.outputs.OutputStrategy;
+import java.util.Random;
 
 public class AlertGenerator implements PatientDataGenerator {
 
     public static final Random randomGenerator = new Random();
+    // Change the name of AlertStates to alertStates
     private boolean[] alertStates; // False = resolved, true = pressed.
 
     public AlertGenerator(int patientCount) {
@@ -22,6 +24,7 @@ public class AlertGenerator implements PatientDataGenerator {
                     outputStrategy.output(patientId, System.currentTimeMillis(), "Alert", "resolved");
                 }
             } else {
+                // Change the name of Lambda to lambda
                 double lambda = 0.1; // Average rate (alerts per period), adjust based on desired frequency
                 double p = -Math.expm1(-lambda); // Probability of at least one alert in the period
                 boolean alertTriggered = randomGenerator.nextDouble() < p;
@@ -29,6 +32,7 @@ public class AlertGenerator implements PatientDataGenerator {
                 if (alertTriggered) {
                     alertStates[patientId] = true;
                     // Output the alert
+                    // Line-wrapping the outputStrategy because the line contains more than 100 characters
                     outputStrategy.output(
                         patientId, System.currentTimeMillis(), "Alert", "triggered"
                     );
