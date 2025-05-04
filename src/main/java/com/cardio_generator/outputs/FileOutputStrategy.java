@@ -18,6 +18,11 @@ public class FileOutputStrategy implements OutputStrategy {
 
     public static final ConcurrentHashMap<String, String> FILE_MAP = new ConcurrentHashMap<>(); //add of static because is a final and change of name to FILE_MAP because is a final variable
 
+    /**
+     * Constructer that creat a object wich contains the baseDirectory
+     * 
+     * @param baseDirectory is a String that contains the directory
+     */
     public FileOutputStrategy(String baseDirectory) {
         this.baseDirectory = baseDirectory; //change of B to b
     }
