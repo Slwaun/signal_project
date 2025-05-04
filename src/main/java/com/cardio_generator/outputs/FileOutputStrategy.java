@@ -7,6 +7,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ *  Generate a file that will contain the information about the patienId.
+ *  This class is responsible of the path of the file and to add the data in the file
+ */
+
 public class FileOutputStrategy implements OutputStrategy {
 
     private String baseDirectory; //change of B into b
@@ -18,6 +23,16 @@ public class FileOutputStrategy implements OutputStrategy {
     }
 
     @Override
+    /**
+     * Generate a file in a pecific path with the data of the patients.
+     * 
+     * @param patientId is a integer that represent the id of a patient.
+     * @param timestamp is the record of the date and time of the patient
+     * @param label is a string that contain the name of the file that will be generated
+     * @param data is a string that contain the data related to the patient
+     * 
+     * @throws exception if the code is unable to write or acces the file in the indecated path 
+     */
     public void output(int patientId, long timestamp, String label, String data) {
         try {
             // Create the directory
