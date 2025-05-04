@@ -4,6 +4,9 @@ package com.cardio_generator.generators;
 import com.cardio_generator.outputs.OutputStrategy;
 import java.util.Random;
 
+/**
+ * Generate an alert for a group of patients
+ */
 public class AlertGenerator implements PatientDataGenerator {
 
     public static final Random randomGenerator = new Random();
@@ -12,6 +15,7 @@ public class AlertGenerator implements PatientDataGenerator {
 
     /**
      * Create an alert generator for the number of patient given
+     * 
      * @param patientCount the number of patients, it has to be higher or equal to 0
      */
     public AlertGenerator(int patientCount) {
@@ -21,6 +25,7 @@ public class AlertGenerator implements PatientDataGenerator {
     @Override
     /**
      * Checked the value of alertStates of the patient and use outputStrategy depending of the value to output an alerts
+     * 
      * @param patientId the Id of the patient
      * @param outputStrategy the selected outputStrategy
      */
