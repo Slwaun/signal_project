@@ -10,11 +10,20 @@ public class AlertGenerator implements PatientDataGenerator {
     // Change the name of AlertStates to alertStates
     private boolean[] alertStates; // False = resolved, true = pressed.
 
+    /**
+     * Create an alert generator for the number of patient given
+     * @param patientCount the number of patients, it has to be higher or equal to 0
+     */
     public AlertGenerator(int patientCount) {
         alertStates = new boolean[patientCount + 1];
     }
 
     @Override
+    /**
+     * Checked the value of alertStates of the patient and use outputStrategy depending of the value to output an alerts
+     * @param patientId the Id of the patient
+     * @param outputStrategy the selected outputStrategy
+     */
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
             if (alertStates[patientId]) {
