@@ -4,6 +4,9 @@ package com.cardio_generator.generators;
 import com.cardio_generator.outputs.OutputStrategy;
 import java.util.Random;
 
+/**
+ * Generate an alert for a group of patients
+ */
 public class AlertGenerator implements PatientDataGenerator {
 
     public static final Random randomGenerator = new Random();
