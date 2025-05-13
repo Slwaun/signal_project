@@ -37,7 +37,15 @@ public class DataReaderFile implements DataReader {
                 if(lineParts[3].indexOf("%") == -1){
                     measurementValue = Double.parseDouble(lineParts[3].substring(7, lineParts[3].indexOf("%") - 1));
                 } else {
-                    measurementValue = Double.parseDouble(lineParts[3].substring(7));
+                    String condition = lineParts[3].substring(7);
+                    if(condition.equals("triggered")){
+                        measurementValue = 1.0;
+                    } else if(condition.equals("resolved")) {
+                        measurementValue = 0.0;
+                    } else {
+                        measurementValue = Double.parseDouble(condition);
+                    }
+                    
                 }
 
                 if(lineParts.length >= 3){
