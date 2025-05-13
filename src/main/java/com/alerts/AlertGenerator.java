@@ -40,23 +40,8 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
-        ArrayList<Patient> patientList = new ArrayList<>(dataStorage.getAllPatients());
-        PatientRecord record = null;
-
-        for(int i = 0; i < patientList.size(); i++){
-            Patient patient = patientList.get(i);
-            List<PatientRecord> patientRecord = patient.getRecords(alert.getTimestamp(), alert.getTimestamp());
-            for(int j = 0; j < patientRecord.size(); j++){
-                if(alert.getPatientId().equals(patientRecord.get(j).getPatientId())){
-                    record = patientRecord.get(j);
-                    break;
-                }
-            }   
-        }
-
-        if(record.getRecordType().equals("BloodPressure")){
-            
-        }
+        //ECG, Saturation, chlosterole, redcell and whitecell
+        
     }
 
     /**
