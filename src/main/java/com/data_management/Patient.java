@@ -12,6 +12,8 @@ import java.util.List;
 public class Patient {
     private int patientId;
     private List<PatientRecord> patientRecords;
+    private String recordType; // Example: ECG, blood pressure, etc.
+    private double measurementValue; // Example: heart rate
 
     /**
      * Constructs a new Patient with a specified ID.
@@ -52,7 +54,11 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+        List<PatientRecord> patientRecords = new ArrayList<>();
+        for(long timeStamp = startTime; timeStamp<endTime; timeStamp++){
+            PatientRecord pr = new PatientRecord(patientId, measurementValue, recordType, timeStamp);
+            patientRecords.add(pr);
+        }
         return this.patientRecords;
     }
 }
