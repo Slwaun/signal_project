@@ -33,8 +33,20 @@ public class DataReaderFile implements DataReader {
                 int patientId = Integer.parseInt(lineParts[0].substring(12));
                 long timeStamp = Long.parseLong(lineParts[1].substring(12));
                 String recordType = lineParts[2].substring(6);
-                Double measurementValue = Double.parseDouble(lineParts[3].substring(7));
-
+                Double measurementValue;
+                if(lineParts[3].indexOf("%") == -1){
+                    measurementValue = Double.parseDouble(lineParts[3].substring(7, lineParts[3].indexOf("%") - 1));
+                } else {
+                    String condition = lineParts[3].substring(7);
+                    if(condition.equals("triggered")){
+                        measurementValue = 1.0;
+                    } else if(condition.equals("resolved")) {
+                        measurementValue = 0.0;
+                    } else {
+                        measurementValue = Double.parseDouble(condition);
+                    }
+                    
+                }
 
                 if(lineParts.length >= 3){
                     dataStorage.addPatientData(patientId, measurementValue, recordType, timeStamp);
