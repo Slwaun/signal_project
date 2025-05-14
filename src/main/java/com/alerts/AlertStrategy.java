@@ -2,6 +2,6 @@ package com.alerts;
 
 public interface AlertStrategy {
 
-    public void checkAlert();
+    public boolean checkAlert(String condition);
 
 }

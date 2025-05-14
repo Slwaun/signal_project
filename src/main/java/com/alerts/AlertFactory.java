@@ -1,13 +1,7 @@
 package com.alerts;
 
-public class AlertFactory {
+public abstract class AlertFactory {
 
-    public AlertFactory(){
-
-    }
-
-    public Alert createAlert(String patientId, String conditon, long timeStamp){
-        return new Alert(patientId, conditon, timeStamp);
-    }
+    public abstract Alert createAlert(String patientId, String conditon, long timeStamp);
 
 }
