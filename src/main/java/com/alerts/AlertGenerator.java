@@ -1,6 +1,5 @@
 package com.alerts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.data_management.DataStorage;
@@ -44,16 +43,14 @@ public class AlertGenerator {
         long startTime = 0;
         long endTime = 1200000;
         List<PatientRecord> patientRecords = patient.getRecords(startTime, endTime);
-        double min = 0.0;
-        double max = 0.0;
 
-        for(int i = (int) startTime; i<((int) endTime); i++){
+        for(int i = (int) startTime; i < patientRecords.size(); i++){
             String patientId = Integer.toString(patientRecords.get(i).getPatientId());
             String record = patientRecords.get(i).getRecordType();
             double measurement = patientRecords.get(i).getMeasurementValue();
             long timeStamp = patientRecords.get(i).getTimestamp();
 
-             if (record.equals("SystolicPressure") || record.equals("DiastolicPressure")) {
+            if (record != null && (record.equals("SystolicPressure") || record.equals("DiastolicPressure"))) {
                 if (record.equals("SystolicPressure")) {
                     if (measurement>180.0 || measurement<90) {
                         triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
@@ -64,16 +61,16 @@ public class AlertGenerator {
                         triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
                 }
-                if (i == (int) startTime || i == ((int) startTime)-1) {
+                if (i+3 < patientRecords.size()) {
                     double[] tmp = new double[3];
                     for(int j = 0;j<tmp.length;j++){
-                       tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() + patientRecords.get(j+1).getMeasurementValue()); 
+                       tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() - patientRecords.get(j+1).getMeasurementValue()); 
                     }
                     if(tmp[0]>10 && tmp[1]>10 && tmp[2]>10){
                         triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
                 }
-                else if (i == (int) endTime) {
+                else if (i == patientRecords.size()-1) {
                     double[] tmp = new double[3];
                     for(int j = ((int) endTime)-1;j<tmp.length;j--){
                        tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() + patientRecords.get(j-1).getMeasurementValue()); 
@@ -81,7 +78,7 @@ public class AlertGenerator {
                     if(tmp[0]>10 && tmp[1]>10 && tmp[2]>10){
                         triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
-                } else {   
+                } else if(i > 2) {   
                     double cond1 = Math.abs(patientRecords.get(i).getMeasurementValue() + patientRecords.get(i-1).getMeasurementValue());
                     double cond2 = Math.abs(patientRecords.get(i).getMeasurementValue() + patientRecords.get(i+1).getMeasurementValue());
                     double cond3 = Math.abs(patientRecords.get(i-1).getMeasurementValue() + patientRecords.get(i-2).getMeasurementValue());
@@ -90,7 +87,7 @@ public class AlertGenerator {
                     }
                 }
             }
-             if (record.equals("Saturation")) {
+            if (record != null &&record.equals("Saturation")) {
                 if (measurement < 92) {
                     triggerAlert(new BloodOxygenAlert(patientId,record,timeStamp));
                 } else {

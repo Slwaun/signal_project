@@ -9,6 +9,8 @@ public class DataReaderFile implements DataReader {
     private String outputDir;
 
     public DataReaderFile(String[] args){
+        this.outputDir = "output/SystolicPressure.txt";
+        /*
         for(String arg : args){
             if(arg.startsWith("--output")){
                 int indexStart = arg.indexOf("<");
@@ -20,6 +22,7 @@ public class DataReaderFile implements DataReader {
                 }
             }
         }
+         */
     }
 
     public void readData(DataStorage dataStorage) throws IOException{
@@ -30,12 +33,12 @@ public class DataReaderFile implements DataReader {
             while ((line = reader.readLine()) != null) {
                 String[] lineParts = line.split(",");
 
-                int patientId = Integer.parseInt(lineParts[0].substring(12));
-                long timeStamp = Long.parseLong(lineParts[1].substring(12));
-                String recordType = lineParts[2].substring(6);
+                int patientId = Integer.parseInt(lineParts[0].substring(lineParts[0].indexOf(":")+2));
+                long timeStamp = Long.parseLong(lineParts[1].substring(lineParts[1].indexOf(":")+2));
+                String recordType = lineParts[2].substring(lineParts[2].indexOf(":")+2);
                 Double measurementValue;
-                if(lineParts[3].indexOf("%") == -1){
-                    measurementValue = Double.parseDouble(lineParts[3].substring(7, lineParts[3].indexOf("%") - 1));
+                if(lineParts[3].indexOf("%") != -1){
+                    measurementValue = Double.parseDouble(lineParts[3].substring(lineParts[3].indexOf("Data: "), lineParts[3].indexOf("%") - 1));
                 } else {
                     String condition = lineParts[3].substring(7);
                     if(condition.equals("triggered")){

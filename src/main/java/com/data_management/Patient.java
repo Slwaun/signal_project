@@ -57,8 +57,10 @@ public class Patient {
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
         for(long timeStamp = startTime; timeStamp<endTime; timeStamp++){
-            PatientRecord pr = new PatientRecord(patientId, measurementValue, recordType, timeStamp);
-            patientRecords.add(pr);
+            if(recordType != null){
+                PatientRecord pr = new PatientRecord(patientId, measurementValue, recordType, timeStamp);
+                patientRecords.add(pr);
+            }
         }
         return this.patientRecords;
     }
