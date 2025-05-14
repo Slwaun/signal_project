@@ -34,6 +34,15 @@ public class HealthDataSimulator {
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
+    private static HealthDataSimulator INSTANCE;
+
+    public static HealthDataSimulator getInstance(){
+        if(INSTANCE == null){
+            INSTANCE = new HealthDataSimulator();
+        }
+
+        return INSTANCE;
+    }
 
     public static void main(String[] args) throws IOException {
 
