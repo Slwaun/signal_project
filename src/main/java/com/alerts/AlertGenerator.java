@@ -64,7 +64,7 @@ public class AlertGenerator {
                         triggerAlert(new Alert(patientId,record,timeStamp));
                     }
                 }
-                if (i == (int) startTime) {
+                if (i == (int) startTime || i == ((int) startTime)-1) {
                     double[] tmp = new double[3];
                     for(int j = 0;j<tmp.length;j++){
                        tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() + patientRecords.get(j+1).getMeasurementValue()); 
@@ -81,14 +81,32 @@ public class AlertGenerator {
                     if(tmp[0]>10 && tmp[1]>10 && tmp[2]>10){
                         triggerAlert(new Alert(patientId,record,timeStamp));
                     }
-                } else {
-                    
-                    if(>10 && >10 && >10){
+                } else {   
+                    double cond1 = Math.abs(patientRecords.get(i).getMeasurementValue() + patientRecords.get(i-1).getMeasurementValue());
+                    double cond2 = Math.abs(patientRecords.get(i).getMeasurementValue() + patientRecords.get(i+1).getMeasurementValue());
+                    double cond3 = Math.abs(patientRecords.get(i-1).getMeasurementValue() + patientRecords.get(i-2).getMeasurementValue());
+                    if(cond1>10 && cond2>10 && cond3>10){
                         triggerAlert(new Alert(patientId,record,timeStamp));
                     }
                 }
             }
-                
+             if (record.equals("Saturation")) {
+                if (measurement < 92) {
+                    triggerAlert(new Alert(patientId,record,timeStamp));
+                } else {
+                   if (Math.abs(endTime - startTime) > 600000) {    //that check if there is at list 10 min of data
+                        for(int k = 0; k< ((int) endTime);k++){
+                            if (Math.abs(k - ((int) endTime)) <600000) {
+                                break;
+                            } else {
+                                if (Math.abs(patientRecords.get(k).getMeasurementValue() - patientRecords.get(k+600000).getMeasurementValue()) <= 5) {
+                                    triggerAlert(new Alert(patientId,record,timeStamp));
+                                }
+                            }
+                        }
+                   } 
+                }
+             }
         }
 
 
