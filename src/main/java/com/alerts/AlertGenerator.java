@@ -56,12 +56,12 @@ public class AlertGenerator {
              if (record.equals("SystolicPressure") || record.equals("DiastolicPressure")) {
                 if (record.equals("SystolicPressure")) {
                     if (measurement>180.0 || measurement<90) {
-                        triggerAlert(new Alert(patientId,record,timeStamp));
+                        triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
                 }
                 if (record.equals("DiastolicPressure")) {
                     if (measurement>120.0 || measurement<60) {
-                        triggerAlert(new Alert(patientId,record,timeStamp));
+                        triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
                 }
                 if (i == (int) startTime || i == ((int) startTime)-1) {
@@ -70,7 +70,7 @@ public class AlertGenerator {
                        tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() + patientRecords.get(j+1).getMeasurementValue()); 
                     }
                     if(tmp[0]>10 && tmp[1]>10 && tmp[2]>10){
-                        triggerAlert(new Alert(patientId,record,timeStamp));
+                        triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
                 }
                 else if (i == (int) endTime) {
@@ -79,20 +79,20 @@ public class AlertGenerator {
                        tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() + patientRecords.get(j-1).getMeasurementValue()); 
                     }
                     if(tmp[0]>10 && tmp[1]>10 && tmp[2]>10){
-                        triggerAlert(new Alert(patientId,record,timeStamp));
+                        triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
                 } else {   
                     double cond1 = Math.abs(patientRecords.get(i).getMeasurementValue() + patientRecords.get(i-1).getMeasurementValue());
                     double cond2 = Math.abs(patientRecords.get(i).getMeasurementValue() + patientRecords.get(i+1).getMeasurementValue());
                     double cond3 = Math.abs(patientRecords.get(i-1).getMeasurementValue() + patientRecords.get(i-2).getMeasurementValue());
                     if(cond1>10 && cond2>10 && cond3>10){
-                        triggerAlert(new Alert(patientId,record,timeStamp));
+                        triggerAlert(new BloodPressureAlert(patientId,record,timeStamp));
                     }
                 }
             }
              if (record.equals("Saturation")) {
                 if (measurement < 92) {
-                    triggerAlert(new Alert(patientId,record,timeStamp));
+                    triggerAlert(new BloodOxygenAlert(patientId,record,timeStamp));
                 } else {
                    if (Math.abs(endTime - startTime) > 600000) {    //that check if there is at list 10 min of data
                         for(int k = 0; k< ((int) endTime);k++){
@@ -100,7 +100,7 @@ public class AlertGenerator {
                                 break;
                             } else {
                                 if (Math.abs(patientRecords.get(k).getMeasurementValue() - patientRecords.get(k+600000).getMeasurementValue()) <= 5) {
-                                    triggerAlert(new Alert(patientId,record,timeStamp));
+                                    triggerAlert(new BloodOxygenAlert(patientId,record,timeStamp));
                                 }
                             }
                         }
