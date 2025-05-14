@@ -12,6 +12,8 @@ import java.util.List;
 public class Patient {
     private int patientId;
     private List<PatientRecord> patientRecords;
+
+    //add for records
     private String recordType; // Example: ECG, blood pressure, etc.
     private double measurementValue; // Example: heart rate
 
@@ -54,7 +56,6 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        List<PatientRecord> patientRecords = new ArrayList<>();
         for(long timeStamp = startTime; timeStamp<endTime; timeStamp++){
             PatientRecord pr = new PatientRecord(patientId, measurementValue, recordType, timeStamp);
             patientRecords.add(pr);

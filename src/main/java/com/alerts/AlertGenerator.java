@@ -40,8 +40,58 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
-        //ECG, Saturation, chlosterole, redcell and whitecell
-        
+        //ECG, Saturation, chlosterole, redcell and whitecell....
+        long startTime = 0;
+        long endTime = 1200000;
+        List<PatientRecord> patientRecords = patient.getRecords(startTime, endTime);
+        double min = 0.0;
+        double max = 0.0;
+
+        for(int i = (int) startTime; i<((int) endTime); i++){
+            String patientId = Integer.toString(patientRecords.get(i).getPatientId());
+            String record = patientRecords.get(i).getRecordType();
+            double measurement = patientRecords.get(i).getMeasurementValue();
+            long timeStamp = patientRecords.get(i).getTimestamp();
+
+             if (record.equals("SystolicPressure") || record.equals("DiastolicPressure")) {
+                if (record.equals("SystolicPressure")) {
+                    if (measurement>180.0 || measurement<90) {
+                        triggerAlert(new Alert(patientId,record,timeStamp));
+                    }
+                }
+                if (record.equals("DiastolicPressure")) {
+                    if (measurement>120.0 || measurement<60) {
+                        triggerAlert(new Alert(patientId,record,timeStamp));
+                    }
+                }
+                if (i == (int) startTime) {
+                    double[] tmp = new double[3];
+                    for(int j = 0;j<tmp.length;j++){
+                       tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() + patientRecords.get(j+1).getMeasurementValue()); 
+                    }
+                    if(tmp[0]>10 && tmp[1]>10 && tmp[2]>10){
+                        triggerAlert(new Alert(patientId,record,timeStamp));
+                    }
+                }
+                else if (i == (int) endTime) {
+                    double[] tmp = new double[3];
+                    for(int j = ((int) endTime)-1;j<tmp.length;j--){
+                       tmp[j] = Math.abs(patientRecords.get(j).getMeasurementValue() + patientRecords.get(j-1).getMeasurementValue()); 
+                    }
+                    if(tmp[0]>10 && tmp[1]>10 && tmp[2]>10){
+                        triggerAlert(new Alert(patientId,record,timeStamp));
+                    }
+                } else {
+                    
+                    if(>10 && >10 && >10){
+                        triggerAlert(new Alert(patientId,record,timeStamp));
+                    }
+                }
+            }
+                
+        }
+
+
     }
 
     /**
