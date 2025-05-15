@@ -87,7 +87,7 @@ public class AlertGenerator {
                     }
                 }
             }
-            if (record != null &&record.equals("Saturation")) {
+            if (record != null && record.equals("Saturation")) {
                 if (measurement < 92) {
                     triggerAlert(new BloodOxygenAlert(patientId,record,timeStamp));
                 } else {
@@ -103,7 +103,43 @@ public class AlertGenerator {
                         }
                    } 
                 }
-             }
+            }
+            if(record != null && record.equals("Alert")){
+                if(measurement == 1){
+                    triggerAlert(new NurseAlert(patientId, record, timeStamp));
+                }
+            }
+
+            if(record != null && record.equals("ECG")){
+                double avg = 0;
+                double count = 0;
+                int j = 0;
+                while (j < patientRecords.size() || count < 20) {
+                    String newRecord = patientRecords.get(j).getRecordType();
+                    if(newRecord != null && newRecord.equals("ECG")){
+                        avg += patientRecords.get(j).getMeasurementValue();
+                        count++;
+                    }
+                }
+                avg /= count;
+
+                j = 0;
+                count = 0;
+                double ssd = 0;
+                while (j < patientRecords.size() || count < 20) {
+                    String newRecord = patientRecords.get(j).getRecordType();
+                    if(newRecord != null && newRecord.equals("ECG")){
+                        ssd += Math.pow(patientRecords.get(j).getMeasurementValue() - avg, 2);
+                        count++;
+                    }
+                }
+                ssd /= count;
+
+                if(Math.abs(measurement - avg) > 3*ssd){
+                    triggerAlert(new ECGAlert(patientId, record, timeStamp));
+                }
+
+            }
         }
 
 
