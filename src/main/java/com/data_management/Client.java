@@ -1,10 +1,7 @@
 package com.data_management;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
-import org.java_websocket.WebSocket;
-import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.handshake.ServerHandshake;
 import org.java_websocket.client.WebSocketClient;
 
