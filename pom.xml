@@ -47,10 +47,6 @@
                     <manifest>
                         <addClasspath>true</addClasspath>
                         <mainClass>com.Main</mainClass>
-                        <arguments>
-                            <argument>Client</argument>
-                            <argument>8080</argument>
-                        </arguments>
                     </manifest>
                     </archive>
                 </configuration>

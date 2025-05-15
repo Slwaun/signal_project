@@ -103,10 +103,11 @@ public class Client extends WebSocketClient implements DataReader{
 
     public static void main(String[] args) {
         try {
-        WebSocketOutputStrategy server = new WebSocketOutputStrategy(Integer.parseInt(args[0]));
-        URI uri = new URI("ws://websocket:" + args[0]);
-        DataStorage dataStorage = new DataStorage();
-        Client client = new Client(uri, dataStorage);
+            WebSocketOutputStrategy server = new WebSocketOutputStrategy(Integer.parseInt(args[0]));
+            URI uri = new URI("ws://localhost:" + args[0]);
+            DataStorage dataStorage = new DataStorage();
+            Client client = new Client(uri, dataStorage);
+            client.connect();
         }
         catch (Exception e){
             System.out.println("Error");
