@@ -30,6 +30,14 @@ public class PriorityAlertDecorator extends AlertDecorator {
 
         for(int i = 0; i < recordList.size(); i++){
             PatientRecord record = recordList.get(i);
+            if(record.getRecordType().equals("Alert") && record.getMeasurementValue() == 1.0){
+                priorityList.add(new BloodPressureAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
+                patientIdList.add(record.getPatientId());
+            }
+        }
+
+        for(int i = 0; i < recordList.size(); i++){
+            PatientRecord record = recordList.get(i);
             if(!patientIdList.contains(record.getPatientId())){
                 if(record.getRecordType().equals("SystolicPressure")){
                     priorityList.add(new BloodPressureAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
