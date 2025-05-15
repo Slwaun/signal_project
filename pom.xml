@@ -46,7 +46,11 @@
                     <archive>
                     <manifest>
                         <addClasspath>true</addClasspath>
-                        <mainClass>com.yourpackage.Main</mainClass>
+                        <mainClass>com.Main</mainClass>
+                        <arguments>
+                            <argument>Client</argument>
+                            <argument>8080</argument>
+                        </arguments>
                     </manifest>
                     </archive>
                 </configuration>
