@@ -114,26 +114,28 @@ public class AlertGenerator {
                 double avg = 0;
                 double count = 0;
                 int j = 0;
-                while (j < patientRecords.size() || count < 20) {
+                while (j < patientRecords.size() && count < 20) {
                     String newRecord = patientRecords.get(j).getRecordType();
                     if(newRecord != null && newRecord.equals("ECG")){
                         avg += patientRecords.get(j).getMeasurementValue();
                         count++;
                     }
+                    j++;
                 }
                 avg /= count;
 
                 j = 0;
                 count = 0;
                 double ssd = 0;
-                while (j < patientRecords.size() || count < 20) {
+                while (j < patientRecords.size() && count < 20) {
                     String newRecord = patientRecords.get(j).getRecordType();
                     if(newRecord != null && newRecord.equals("ECG")){
                         ssd += Math.pow(patientRecords.get(j).getMeasurementValue() - avg, 2);
                         count++;
                     }
+                    j++;
                 }
-                ssd /= count;
+                ssd = Math.sqrt(ssd/count);
 
                 if(Math.abs(measurement - avg) > 3*ssd){
                     triggerAlert(new ECGAlert(patientId, record, timeStamp));
