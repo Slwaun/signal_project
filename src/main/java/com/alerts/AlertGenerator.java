@@ -159,4 +159,12 @@ public class AlertGenerator {
         // Implementation might involve logging the alert or notifying staff
         System.out.println(alert.getCondition());
     }
+
+    public void readDataStorage(){
+        List<Patient> patientList = dataStorage.getAllPatients();
+        for(int i = 0; i < patientList.size(); i++){
+            Patient patient = patientList.get(i);
+            evaluateData(patient);
+        }
+    }
 }

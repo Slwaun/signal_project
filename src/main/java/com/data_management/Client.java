@@ -5,6 +5,7 @@ import java.net.URI;
 import org.java_websocket.handshake.ServerHandshake;
 import org.java_websocket.client.WebSocketClient;
 
+import com.alerts.AlertGenerator;
 import com.cardio_generator.outputs.WebSocketOutputStrategy;
 
 public class Client extends WebSocketClient implements DataReader{
@@ -29,6 +30,8 @@ public class Client extends WebSocketClient implements DataReader{
         System.out.println(message);
         if (check) {
            readData(this.dataStorage);
+           AlertGenerator alertGenerator = new AlertGenerator(this.dataStorage);
+           alertGenerator.readDataStorage();
         }
     }
 
