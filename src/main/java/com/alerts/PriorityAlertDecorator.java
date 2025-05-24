@@ -10,7 +10,7 @@ public class PriorityAlertDecorator extends AlertDecorator {
         super(alert);
     }
 
-    public ArrayList<Alert> priorityAlert(ArrayList<PatientRecord> recordList){
+    public static ArrayList<Alert> priorityAlert(ArrayList<PatientRecord> recordList){
         ArrayList<Alert> priorityList = new ArrayList<>();
         ArrayList<Integer> patientIdList = new ArrayList<>();
 
@@ -24,14 +24,14 @@ public class PriorityAlertDecorator extends AlertDecorator {
             } else if(record.getRecordType().equals("Saturation") && record.getMeasurementValue() < 92.0){
                 priorityList.add(new BloodOxygenAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
             } else {
-                patientIdList.remove(record.getPatientId());
+                patientIdList.remove(patientIdList.indexOf(record.getPatientId()));
             }
         }
 
         for(int i = 0; i < recordList.size(); i++){
             PatientRecord record = recordList.get(i);
             if(record.getRecordType().equals("Alert") && record.getMeasurementValue() == 1.0){
-                priorityList.add(new BloodPressureAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
+                priorityList.add(new NurseAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
                 patientIdList.add(record.getPatientId());
             }
         }

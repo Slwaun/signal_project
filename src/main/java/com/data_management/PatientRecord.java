@@ -67,4 +67,16 @@ public class PatientRecord {
     public String getRecordType() {
         return recordType;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if(object.getClass() == this.getClass()){
+            PatientRecord record = (PatientRecord) object;
+            if(record.getPatientId() == this.patientId && record.getMeasurementValue() == this.measurementValue
+            && record.getRecordType() == this.recordType && record.getTimestamp() == this.timestamp){
+                return true;
+            }
+        }
+        return false;
+    }
 }

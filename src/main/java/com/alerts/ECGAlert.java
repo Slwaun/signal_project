@@ -24,4 +24,16 @@ public class ECGAlert implements Alert {
         return timestamp;
     }
 
+    @Override
+    public boolean equals(Object object){
+        if(object.getClass() == this.getClass()){
+            Alert alert = (ECGAlert) object;
+            if(alert.getPatientId().equals(this.patientId) && alert.getCondition().equals(this.condition) 
+            && alert.getTimestamp() == this.timestamp){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
