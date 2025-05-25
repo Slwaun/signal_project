@@ -43,7 +43,7 @@ public class PriorityAlertDecorator extends AlertDecorator {
                     priorityList.add(new BloodPressureAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
                 } else if(record.getRecordType().equals("DiastolicPressure")){
                     priorityList.add(new BloodPressureAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
-                } else if(record.getRecordType().equals("Saturation") && record.getMeasurementValue() < 92.0){
+                } else if(record.getRecordType().equals("Saturation") && record.getMeasurementValue() < 95.0){
                     priorityList.add(new BloodOxygenAlert(""+record.getPatientId(), record.getRecordType(), record.getTimestamp()));
                 }
                 patientIdList.add(record.getPatientId());
