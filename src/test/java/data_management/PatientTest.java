@@ -44,6 +44,19 @@ public class PatientTest {
         List<PatientRecord> patientRecord2 = patient.getRecords(10, 11);
 
         assertFalse(patientRecord2.isEmpty());
-        
+    }
+
+    @Test
+    void recordTypeNotNull(){
+        Patient patient = new Patient(1);
+
+        patient.setRecordType("test");
+        patient.setMeasurementValue(1);
+
+        List<PatientRecord> patientRecords = patient.getRecords(1, 2);
+
+        PatientRecord recordTest = new PatientRecord(1, 1, "test", 1);
+
+        assertTrue(recordTest.equals(patientRecords.get(0)));
     }
 }

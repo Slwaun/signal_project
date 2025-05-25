@@ -64,4 +64,12 @@ public class Patient {
         }
         return this.patientRecords;
     }
+
+    public void setRecordType(String newRecordType){
+        this.recordType = newRecordType;
+    }
+
+    public void setMeasurementValue(double newValue){
+        this.measurementValue = newValue;
+    }
 }
