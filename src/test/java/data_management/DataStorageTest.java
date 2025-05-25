@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.data_management.DataReader;
+import com.data_management.DataReaderFile;
 import com.data_management.DataStorage;
 import com.data_management.PatientRecord;
 
@@ -23,5 +24,23 @@ class DataStorageTest {
         List<PatientRecord> records = storage.getRecords(1, 1714376789050L, 1714376789051L);
         assertEquals(2, records.size()); // Check if two records are retrieved
         assertEquals(100.0, records.get(0).getMeasurementValue()); // Validate first record
+    }
+
+    @Test
+    void instanceOf(){
+        DataReader reader = new DataReaderFile(null);
+        DataStorage storage = new DataStorage();
+        DataStorage storageReader = new DataStorage(reader);
+
+        assertTrue(storage instanceof DataStorage);
+        assertTrue(storageReader instanceof DataStorage);
+    }
+
+    @Test
+    void emptyPatient(){
+        DataStorage storage = new DataStorage();
+
+        List<PatientRecord> records = storage.getRecords(1, 0, 100);
+        assertTrue(records.isEmpty());
     }
 }
