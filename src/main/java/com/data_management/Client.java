@@ -64,6 +64,11 @@ public class Client extends WebSocketClient implements DataReader{
         System.out.println("Closed");
     }
 
+    /**
+     * Send a error message.
+     * 
+     * @param ex the type of error
+     */
     @Override
     public void onError(Exception ex) {
         ex.printStackTrace();
