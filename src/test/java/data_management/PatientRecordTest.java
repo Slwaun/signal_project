@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
+import com.data_management.Patient;
 import com.data_management.PatientRecord;
 
 public class PatientRecordTest {
@@ -36,6 +37,7 @@ public class PatientRecordTest {
         PatientRecord testRecordFalseMV = new PatientRecord(1, 9, "test value", 100);
         PatientRecord testRecordFalseRT = new PatientRecord(1, 10, "Test Value", 100);
         PatientRecord testRecordFalseTS = new PatientRecord(1, 10, "test value", 200);
+        Patient notRecord = new Patient(1);
 
 
         assertTrue(testRecord.equals(testRecordTrue));
@@ -43,6 +45,7 @@ public class PatientRecordTest {
         assertFalse(testRecord.equals(testRecordFalseMV));
         assertFalse(testRecord.equals(testRecordFalseRT));
         assertFalse(testRecord.equals(testRecordFalseTS));
+        assertFalse(testRecord.equals(notRecord));
     }
 
 }

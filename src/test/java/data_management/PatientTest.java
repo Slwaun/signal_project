@@ -44,5 +44,6 @@ public class PatientTest {
         List<PatientRecord> patientRecord2 = patient.getRecords(10, 11);
 
         assertFalse(patientRecord2.isEmpty());
+        
     }
 }
