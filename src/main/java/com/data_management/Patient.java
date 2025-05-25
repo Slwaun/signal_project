@@ -65,10 +65,20 @@ public class Patient {
         return this.patientRecords;
     }
 
+    /**
+     * set a new value to recordType
+     * 
+     * @param newRecordType a new value to set
+     */
     public void setRecordType(String newRecordType){
         this.recordType = newRecordType;
     }
 
+    /**
+     * set a new value to measurementValue
+     * 
+     * @param newValue a new value to set
+     */
     public void setMeasurementValue(double newValue){
         this.measurementValue = newValue;
     }

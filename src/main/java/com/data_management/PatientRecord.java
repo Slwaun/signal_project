@@ -68,6 +68,12 @@ public class PatientRecord {
         return recordType;
     }
 
+    /**
+     * compare 2 objects
+     * 
+     * @param object another object
+     * @return boolean if the objects are the same or not
+     */
     @Override
     public boolean equals(Object object){
         if(object.getClass() == this.getClass()){
