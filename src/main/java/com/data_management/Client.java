@@ -15,15 +15,32 @@ public class Client extends WebSocketClient implements DataReader{
     private String recordType;
     private double measurementValue;
 
+    /**
+     * Create a object client that contain the uri and the datastorage.
+     * 
+     * @param dataStorage the storage where data will be stored
+     * @param uri         the uri of the websocket
+     */
     public Client(URI uri, DataStorage dataStorage){
         super(uri);
         this.dataStorage = dataStorage;
     }
+
+     /**
+     * Will notify if we are connected.
+     * 
+     * @param handshakedata parameter of the websocket
+     */
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         System.out.println("Connected");
     }
 
+    /**
+     * will print the data and the alert via the websocket if it's in a correct format.
+     * 
+     * @param message the meesage that will be print
+     */
     @Override
     public void onMessage(String message) {
         Boolean check = parser(message);
@@ -35,6 +52,13 @@ public class Client extends WebSocketClient implements DataReader{
         }
     }
 
+    /**
+     * Will notifiy if the the websocket is closed.
+     * 
+     * @param code the code of error define in the websocket protocol
+     * @param reason why the websocket was closed
+     * @param remote tell if the closing was initiated by the remote host or by this endpoint
+     */
     @Override
     public void onClose(int code, String reason, boolean remote) {
         System.out.println("Closed");
@@ -44,7 +68,13 @@ public class Client extends WebSocketClient implements DataReader{
     public void onError(Exception ex) {
         ex.printStackTrace();
     }
-
+     /**
+     * Parse will check if the message it's correctly parse and
+     * if there not worngly format
+     *
+     * @param message   It the message that need to be check.
+     * @return          return true or false if the message is in a correct format
+     */
     public Boolean parser(String message) {
         String[] content = message.split(",");
         if (content.length != 4) {
@@ -94,6 +124,11 @@ public class Client extends WebSocketClient implements DataReader{
         }
         return true;
     }
+    /**
+     * Reads data from a specified source and stores it in the data storage.
+     * 
+     * @param dataStorage the storage where data will be stored
+     */
     @Override
     public void readData(DataStorage dataStorage) {
 
